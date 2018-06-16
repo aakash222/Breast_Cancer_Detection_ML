@@ -1,0 +1,218 @@
+
+# data preprocessing
+
+# importing the libraries
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+import tkinter as tk
+from tkinter import *
+
+#importing the datasets  using pandas library
+dataset = pd.read_csv('data1.csv')    
+X = dataset.iloc[: , 1:10].values
+y = dataset.iloc[: , 10].values
+
+root= Tk()
+
+label_1 = Label(root, text = "Patient ID")
+label_2 = Label(root, text = "Clump Thickness")
+label_3 = Label(root, text = "Uniformity of Cell Size")
+label_4 = Label(root, text = "Cell Shape")
+label_5 = Label(root, text = "Marginal Adhesion")
+label_6 = Label(root, text = "       Epithelial Cell Size")
+label_7 = Label(root, text = "       Bare Nuclei")
+label_8 = Label(root, text = "       Bland Chromatin")
+label_9 = Label(root, text = "       Normal Nucleoli")
+label_10 = Label(root, text = "      Mitoses")
+label_11 = Label(root, text = "Choose Classifier")
+label_12 = Label(root, text = "1: Logistic Regression")
+label_13 = Label(root, text = "2: Random Forest")
+label_14 = Label(root, text = "3: K-NN ")
+label_15 = Label(root, text = "4: SVM ")
+label_16 = Label(root, text = "5: Naive Bayes")
+label_17 = Label(root, text = "6: Decision Tree")
+
+
+
+
+entry_1 = Entry(root)
+entry_2 = Entry(root) 
+
+tkvar_1 = StringVar(root)
+tkvar_2 = StringVar(root)
+tkvar_3 = StringVar(root)
+tkvar_4 = StringVar(root)
+tkvar_5 = StringVar(root)
+tkvar_6 = StringVar(root)
+tkvar_7 = StringVar(root)
+tkvar_8 = StringVar(root)
+tkvar_9 = StringVar(root)
+tkvar_10 = StringVar(root)
+
+choices1 = [ '1','2','3','4','5','6','7','8','9','10']
+tkvar_1.set('1') # set the default option
+choices2 = [ '1','2','3','4','5','6','7','8','9','10']
+tkvar_2.set('1') # set the default option
+choices3 = [ '1','2','3','4','5','6','7','8','9','10']
+tkvar_3.set('1') # set the default option
+choices4 = [ '1','2','3','4','5','6','7','8','9','10']
+tkvar_4.set('1') # set the default option
+choices5 = [ '1','2','3','4','5','6','7','8','9','10']
+tkvar_5.set('1') # set the default option
+choices6 = [ '1','2','3','4','5','6','7','8','9','10']
+tkvar_6.set('1') # set the default option
+choices7 = [ '1','2','3','4','5','6','7','8','9','10']
+tkvar_7.set('1') # set the default option
+choices8 = [ '1','2','3','4','5','6','7','8','9','10']
+tkvar_8.set('1') # set the default option
+choices9 = [ '1','2','3','4','5','6','7','8','9','10']
+tkvar_9.set('1') # set the default option
+choices10 = ['1','2','3','4','5','6']
+tkvar_10.set('1') # set the default option
+
+popupMenu_1 = OptionMenu(root, tkvar_1, *choices1)
+popupMenu_2 = OptionMenu(root, tkvar_2, *choices2)
+popupMenu_3 = OptionMenu(root, tkvar_3, *choices3)
+popupMenu_4 = OptionMenu(root, tkvar_4, *choices4)
+popupMenu_5 = OptionMenu(root, tkvar_5, *choices5)
+popupMenu_6 = OptionMenu(root, tkvar_6, *choices6)
+popupMenu_7 = OptionMenu(root, tkvar_7, *choices7)
+popupMenu_8 = OptionMenu(root, tkvar_8, *choices8)
+popupMenu_9 = OptionMenu(root, tkvar_9, *choices9)
+popupMenu_10 = OptionMenu(root, tkvar_10, *choices10)
+
+label_1.grid(row = 0, column=0, sticky = E)
+label_2.grid(row = 1, column=0, sticky = E)
+label_3.grid(row = 2, column=0, sticky = E)
+label_4.grid(row = 3, column=0, sticky = E)
+label_5.grid(row = 4, column=0, sticky = E)
+label_6.grid(row = 0, column=2, sticky = E)
+label_7.grid(row = 1, column=2, sticky = E)
+label_8.grid(row = 2, column=2, sticky = E)
+label_9.grid(row = 3, column=2,sticky = E)
+label_10.grid(row = 4, column=2,sticky = E)
+label_11.grid(row = 7, column=0,sticky = E)
+label_12.grid(row = 9, column=0)
+label_13.grid(row = 10, column=0)
+label_14.grid(row = 11, column=0)
+label_15.grid(row = 9, column=2)
+label_16.grid(row = 10, column=2)
+label_17.grid(row = 11, column=2)
+
+
+entry_1.grid(row = 0, column=1)
+popupMenu_1.grid(row = 1, column=1)
+popupMenu_2.grid(row = 2, column=1)
+popupMenu_3.grid(row = 3, column=1)
+popupMenu_4.grid(row = 4, column=1)
+popupMenu_5.grid(row = 0, column=4)
+popupMenu_6.grid(row = 1, column=4)
+popupMenu_7.grid(row = 2, column=4)
+popupMenu_8.grid(row = 3, column=4)
+popupMenu_9.grid(row = 4, column=4)
+popupMenu_10.grid(row = 7, column=1)
+entry_2.grid(row = 8, column=1)
+
+def get_result():
+    _id = int(entry_1.get())
+    clump_thickness = int(tkvar_1.get())
+    uniformity_of_cell_size = int(tkvar_2.get())
+    cell_shape = int(tkvar_3.get())
+    marginal_adhesion = int(tkvar_4.get())
+    epithelial_cell_size = int(tkvar_5.get())
+    bare_nuclei = int(tkvar_6.get())
+    bland_chromatin = int(tkvar_7.get())
+    normal_nucleoli = int(tkvar_8.get())
+    mitoses = int(tkvar_9.get())
+    model = int(tkvar_10.get())
+    
+    new_data = [clump_thickness,uniformity_of_cell_size,cell_shape,marginal_adhesion,epithelial_cell_size,bare_nuclei,bland_chromatin,normal_nucleoli,mitoses]
+    
+    # Taking care of missing data
+    from sklearn.preprocessing import Imputer
+    imputer = Imputer(missing_values = 'NaN', strategy = 'mean', axis = 0)
+    imputer = imputer.fit(X[:, 5:6])
+    X[:, 5:6] = imputer.transform(X[:, 5:6])
+    
+    # Splitting the dataset into the Training set and Test set
+    from sklearn.cross_validation import train_test_split
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20)
+    X_test = np.append(X_test,[new_data],axis=0)
+    
+    # Feature Scaling
+    from sklearn.preprocessing import StandardScaler
+    sc = StandardScaler()
+    X_train = sc.fit_transform(X_train)
+    X_test = sc.transform(X_test)    
+    
+    # Fitting classifier to the training set
+        
+    if model == 1:    
+        # Fitting Logistic Regression to the Training set           # Accuracy = 96.579%
+        from sklearn.linear_model import LogisticRegression
+        classifier = LogisticRegression(random_state = 0)
+        classifier.fit(X_train, y_train)
+     
+    if model == 2: 
+        # Fitting Random Forest Classifier to the Training set      # Accuracy = 96.575%
+        from sklearn.ensemble import RandomForestClassifier
+        classifier = RandomForestClassifier(n_estimators = 300, criterion = 'entropy', random_state = 0)
+        classifier.fit(X_train, y_train)
+     
+    if model == 3: 
+        # Fitting K-NN to the Training set                          # Accuracy = 96.434%
+        from sklearn.neighbors import KNeighborsClassifier
+        classifier = KNeighborsClassifier(n_neighbors = 5, metric = 'minkowski', p = 2)
+        classifier.fit(X_train, y_train)
+     
+    if model == 4: 
+        # Fitting SVM to the Training set                          # Accuracy = 96.291%
+        from sklearn.svm import SVC
+        classifier = SVC(kernel = 'linear', random_state = 0)         
+        classifier.fit(X_train, y_train)
+    
+    if model == 5:     
+        # Fitting Naive Bayes to the Training set                  # Accuracy = 96.001%
+        from sklearn.naive_bayes import GaussianNB
+        classifier = GaussianNB()
+        classifier.fit(X_train, y_train)
+     
+    if model == 6: 
+        # Fitting Decision tree Classifier to the Training set     # Accuracy = 93.575%
+        from sklearn.tree import DecisionTreeClassifier
+        classifier = DecisionTreeClassifier(criterion = 'entropy', random_state = 0)
+        classifier.fit(X_train, y_train)
+        
+    # Predicting the Test set results
+    y_pred = classifier.predict(X_test)
+    if y_pred[len(y_pred)-1] == 2:
+        entry_2.insert(0,"Negative")
+    else:
+        entry_2.insert(0,"Positive")
+
+    # Applying K-Fold Cross Validation
+    from sklearn.model_selection import cross_val_score
+    accuracies = cross_val_score(estimator = classifier, X = X_train, y = y_train, cv = 10)
+    accuracies.mean()
+    
+    """# Applying Grid Search to find the best model and the best parameters
+    from sklearn.model_selection import GridSearchCV
+    parameters = [{'C': [1, 10, 100, 1000], 'kernel': ['linear']},
+                  {'C': [1, 10, 100, 1000], 'kernel': ['rbf'], 'gamma': [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8,]}]
+    grid_search = GridSearchCV(estimator = classifier,
+                               param_grid = parameters,
+                               scoring = 'accuracy',
+                               cv = 10,
+                               n_jobs = -1)
+    grid_search = grid_search.fit(X_train, y_train)
+    best_accuracy = grid_search.best_score_
+    best_parameters = grid_search.best_params_"""
+
+
+b1 = tk.Button(root, text="QUIT", fg="red",command=root.destroy)
+b2 = tk.Button(root, text="Get Result", fg="blue", command=lambda:get_result())
+b1.grid(row = 8, column = 0)
+b2.grid(row = 8, column = 2)
+root.mainloop()
+
